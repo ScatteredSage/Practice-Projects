@@ -16,7 +16,7 @@ A two-stage pipeline that automates the conversion of unstructured study materia
 ### 3. Data Collection & Media
 *   **`scraper.py`**: A Python web scraping utility designed to parse structured data from target web pages.
 *   **`ascii_converter.py` & `ascii_animator.py`**: Python scripts utilizing the `Pillow` library to map image pixel brightness to ANSI characters, rendering full-color ASCII art and animations directly in the Linux terminal.
-*   *   **`audio_engineer.py`**: An automated audio mixing studio utilizing `pydub` and `ffmpeg`. It applies dynamic range compression to raw vocal tracks, attenuates background ambient tracks, calculates looping durations to match vocal length, and exports a leveled, broadcast-ready MP3.
+*   **`audio_engineer.py`**: An automated audio mixing studio utilizing `pydub` and `ffmpeg`. It applies dynamic range compression to raw vocal tracks, attenuates background ambient tracks, calculates looping durations to match vocal length, and exports a leveled, broadcast-ready MP3.
 
 ## ⚙️ Installation & Setup
 

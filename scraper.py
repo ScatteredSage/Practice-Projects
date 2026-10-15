@@ -9,7 +9,7 @@ def run_scraper():
         # 2. Open a new tab
         page = browser.new_page()
         
-        # 3. Navigate to a target Walmart product URL (Paste a URL here)
+        # 3. Navigate to a target retailer product URL (Paste a URL here)
         target_url = "https://www.walmart.com/ip/Simzlife-Nugget-Ice-Maker-Countertop-44lbs-24H-Self-Cleaning-Soft-Chewable-Pellet-Ice-Pebble-Ice-Maker-Machine-for-Home-Kitchen-Party/6130916832?athAsset=eyJhdGhjcGlkIjoiNjEzMDkxNjgzMiIsImF0aHN0aWQiOiJDUzAyMCIsImF0aGFuY2lkIjoiSXRlbUNhcm91c2VsIiwiYXRocmsiOjAuMH0=&athena=true&athbdg=L1800"  
         page.goto(target_url)
         

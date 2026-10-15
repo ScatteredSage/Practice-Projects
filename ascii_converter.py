@@ -54,6 +54,6 @@ for y in range(height):
     pdf.ln(1.6)
 
 # Save the final file
-output_name = "vivid_art_output.pdf"
+output_name = "path_to_output.pdf"
 pdf.output(output_name)
 print(f"Success! Artwork saved as {output_name}")

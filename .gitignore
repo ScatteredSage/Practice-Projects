@@ -1,1 +1,8 @@
 .env
+# Ignore media assets and generated renders
+*.wav
+*.mp3
+*.mp4
+*.png
+*.jpg
+*.jpeg

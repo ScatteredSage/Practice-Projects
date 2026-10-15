@@ -17,6 +17,7 @@ A two-stage pipeline that automates the conversion of unstructured study materia
 *   **`scraper.py`**: A Python web scraping utility designed to parse structured data from target web pages.
 *   **`ascii_converter.py` & `ascii_animator.py`**: Python scripts utilizing the `Pillow` library to map image pixel brightness to ANSI characters, rendering full-color ASCII art and animations directly in the Linux terminal.
 *   **`audio_engineer.py`**: An automated audio mixing studio utilizing `pydub` and `ffmpeg`. It applies dynamic range compression to raw vocal tracks, attenuates background ambient tracks, calculates looping durations to match vocal length, and exports a leveled, broadcast-ready MP3.
+*   **`reel_generator.py`**: A social media automation script utilizing `moviepy` and Pillow. It stretches a static thematic artwork `.png` to match the exact duration of an engineered audio track, formats it into a 1080x1920 vertical container, and exports a broadcast-ready `.mp4` video optimized for Instagram Reels and YouTube Shorts.
 
 ## ⚙️ Installation & Setup
 

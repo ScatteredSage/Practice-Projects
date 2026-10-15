@@ -2,7 +2,7 @@ import os
 from pypdf import PdfReader 
 
 # WSL path translation targeting your Windows C: drive
-directory = "/mnt/c/Users/Cortney H/Documents/CompTia Linux Notes"
+directory = "path_to_directory"
 
 # Open a temporary text file to hold the raw scraped text
 with open("raw_extracted_notes.txt", "w") as output_file:

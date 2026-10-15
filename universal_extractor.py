@@ -5,7 +5,7 @@ from PIL import Image
 import pytesseract
 
 # WSL path targeting your Windows directory
-directory = "/mnt/c/Users/Cortney H/Documents/CompTia Linux Notes"
+directory = "path_to_directory"
 
 # Open the universal staging file
 with open("raw_extracted_notes.txt", "w") as output_file:

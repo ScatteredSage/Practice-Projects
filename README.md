@@ -7,9 +7,10 @@ A collection of Python and Bash utility scripts focused on cybersecurity automat
 ### 1. The NLP Flashcard Pipeline
 A two-stage pipeline that automates the conversion of unstructured study materials (PDFs, slide decks, and images) into strictly formatted Anki flashcards using the Gemini API.
 
+*   **`flashcard_automator.py`**: The original, unified prototype script for the flashcard pipeline. It handles both basic PDF text extraction and Gemini API calls in a single execution, serving as the foundational logic before the system was upgraded into modular, multi-format stages.
+
 *   **`universal_extractor.py`**: The data gatherer. Rips raw text from `.pdf`, `.pptx`, `.png`, and `.jpg` files using `pypdf`, `python-pptx`, and Tesseract OCR, standardizing the output into a single text file.
 *   **`ai_parser.py`**: The NLP engine. Reads the extracted text and passes it to the Gemini API with strict formatting instructions to generate Anki Cloze deletion flashcards (`Front | Extra`). Dynamically handles numbering to ensure a clean database import.
-*   **`flashcard_automator.py`**: The original, unified prototype script for the flashcard pipeline. It handles both basic PDF text extraction and Gemini API calls in a single execution, serving as the foundational logic before the system was upgraded into modular, multi-format stages.
 
 ### 2. Automated Security Auditing
 *   **`auto_scan.sh`**: A Bash wrapper script that automates system security audits by triggering `clamav`, `rkhunter`, and `lynis`, and parses the output for review.

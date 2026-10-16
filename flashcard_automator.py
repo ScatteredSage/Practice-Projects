@@ -27,4 +27,4 @@ with open("raw_extracted_notes.txt", "w") as output_file:
                 if raw_text:
                     output_file.write(raw_text + "\n")
 
-print("All 151 PDFs successfully scraped into raw text.")
+print("All PDFs successfully scraped into raw text.")

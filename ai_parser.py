@@ -28,7 +28,7 @@ response = client.models.generate_content(
 
 # 3. Open a new final Anki import file in 'write' mode
 with open("master_cloze_deck.txt", "w") as anki_file:
-    card_number = 109
+    card_number = ""
     
     # Split the AI's response into individual lines
     for line in response.text.strip().split('\n'):

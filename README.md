@@ -30,6 +30,8 @@ Generate synthetic logs and test the pipeline:python3 pipeline.py --target vpn -
 
 Continuously monitor a live log file:python3 pipeline.py --target ssh
 
+*   **`metadata.py`**: An automated OSINT and digital forensics wrapper utilizing Python's `os` and `subprocess` modules to trigger batch `exiftool` scans across target directories. It dynamically filters for media and document formats (`.jpg`, `.png`, `.pdf`, `.wav`, `.mp3`) and extracts hidden EXIF, IPTC, XMP, and Composite headers—isolating device models, software signatures, Mobile Country Codes (MCC), optical metrics, and creation timestamps.
+
 ### 3. Data Collection & Media
 *   **`scraper.py`**: A Python web scraping utility designed to parse structured data from target web pages.
 *   **`ascii_converter.py` & `ascii_animator.py`**: Python scripts utilizing the `Pillow` library to map image pixel brightness to ANSI characters, rendering full-color ASCII art and animations directly in the Linux terminal.

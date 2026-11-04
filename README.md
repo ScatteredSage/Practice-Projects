@@ -16,19 +16,19 @@ A two-stage pipeline that automates the conversion of unstructured study materia
 *   **`auto_scan.sh`**: A Bash wrapper script that automates system security audits by triggering `clamav`, `rkhunter`, and `lynis`, and parses the output for review.
 *   **`Unified Detection Pipeline`**: A lightweight, Python-based Security Orchestration, Automation, and Response (SOAR) tool. This script monitors target log files in real-time, extracts Indicators of Compromise (IOCs) using regular expressions, and normalizes detected threats into JSON alert payloads mapped to actionable remediation playbooks.
 
-Features:
+	Features:
 
-Dynamic Configuration: Switch environments (e.g., VPN, SSH) via CLI arguments without altering core logic.
+	*Dynamic Configuration: Switch environments (e.g., VPN, SSH) via CLI arguments without altering core logic.
 
-Real-Time Ingestion: Tails log files efficiently without loading historical data into memory.
+	*Real-Time Ingestion: Tails log files efficiently without loading historical data into memory.
 
-Synthetic Generator: Built-in test engine simulates network drops and brute-force attempts to validate extraction rules.
+	*Synthetic Generator: Built-in test engine simulates network drops and brute-force attempts to validate extraction rules.
 
-Usage:
+	*Usage:
 
-Generate synthetic logs and test the pipeline:python3 pipeline.py --target vpn --test
+	*Generate synthetic logs and test the pipeline:python3 pipeline.py --target vpn --test
 
-Continuously monitor a live log file:python3 pipeline.py --target ssh
+	*Continuously monitor a live log file:python3 pipeline.py --target ssh
 
 *   **`metadata.py`**: An automated OSINT and digital forensics wrapper utilizing Python's `os` and `subprocess` modules to trigger batch `exiftool` scans across target directories. It dynamically filters for media and document formats (`.jpg`, `.png`, `.pdf`, `.wav`, `.mp3`) and extracts hidden EXIF, IPTC, XMP, and Composite headers—isolating device models, software signatures, Mobile Country Codes (MCC), optical metrics, and creation timestamps.
 

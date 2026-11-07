@@ -5,18 +5,21 @@ A collection of Python and Bash utility scripts focused on cybersecurity automat
 ## 🛠️ The Tools
 
 ### 1. The NLP Flashcard Pipeline
+
 A two-stage pipeline that automates the conversion of unstructured study materials (PDFs, slide decks, and images) into strictly formatted Anki flashcards using the Gemini API.
 
 *   **`flashcard_automator.py`**: The original, unified prototype script for the flashcard pipeline. It handles both basic PDF text extraction and Gemini API calls in a single execution, serving as the foundational logic before the system was upgraded into modular, multi-format stages.
 
 *   **`universal_extractor.py`**: The data gatherer. Rips raw text from `.pdf`, `.pptx`, `.png`, and `.jpg` files using `pypdf`, `python-pptx`, and Tesseract OCR, standardizing the output into a single text file.
+
 *   **`ai_parser.py`**: The NLP engine. Reads the extracted text and passes it to the Gemini API with strict formatting instructions to generate Anki Cloze deletion flashcards (`Front | Extra`). Dynamically handles numbering to ensure a clean database import.
 
 ### 2. Automated Security Auditing
+
 *   **`auto_scan.sh`**: A Bash wrapper script that automates system security audits by triggering `clamav`, `rkhunter`, and `lynis`, and parses the output for review.
+
 *   **`Unified Detection Pipeline`**: A lightweight, Python-based Security Orchestration, Automation, and Response (SOAR) tool. This script monitors target log files in real-time, extracts Indicators of Compromise (IOCs) using regular expressions, and normalizes detected threats into JSON alert payloads mapped to actionable remediation playbooks.
 	Features:
-
 	*Dynamic Configuration: Switch environments (e.g., VPN, SSH) via CLI arguments without altering core logic.
 
 	*Real-Time Ingestion: Tails log files efficiently without loading historical data into memory.
@@ -28,19 +31,25 @@ A two-stage pipeline that automates the conversion of unstructured study materia
 	*Generate synthetic logs and test the pipeline:python3 pipeline.py --target vpn --test
 
 	*Continuously monitor a live log file:python3 pipeline.py --target ssh
+
 * `metadata.py`: A bidirectional OSINT forensics extractor and metadata sanitizer utilizing Python's `os`, `subprocess`, and `argparse` modules to wrap `exiftool`. It supports images (`.jpg`, `.png`), documents (`.pdf`), audio (`.wav`, `.mp3`), and video containers (`.mp4`, `.mov`, `.mkv`). In audit mode, it extracts hidden EXIF, IPTC, XMP, and Composite headers. Passing `--scrub` executes an in-place sanitization pass (`-all= -overwrite_original`), stripping identifying metadata headers without leaving backup artifacts behind.
   * Audit Usage: `python3 metadata.py`
   * Sanitize Usage: `python3 metadata.py --scrub`
+
 * `acoustic_shield.py`: An audio and video countermeasure utility built on `subprocess` and `ffmpeg` to neutralize Acoustic Geolocation (Aircraft Doppler Curve matching) and Electrical Network Frequency (ENF) power-grid analysis. It chains a triple-band notch filter (`bandreject` at 50Hz, 60Hz, and 120Hz), a hard digital noise gate (`agate` at `-35dB`), and a sub-perceptual pitch/phase modulator (`vibrato` at `0.4Hz`). For video files (`.mp4`, `.mov`, `.mkv`), it shields the audio track while copying the video stream directly (`-c:v copy`) without re-encoding visuals.
   * Standalone Audio Usage: `python3 acoustic_shield.py -i raw_vocals.wav -o shielded_audio.wav`
   * Standalone Video Usage: `python3 acoustic_shield.py -i raw_video.mp4 -o shielded_video.mp4`
 
 ### 3. Data Collection & Media
+
 *   **`scraper.py`**: A Python web scraping utility designed to parse structured data from target web pages.
+
 *   **`ascii_converter.py` & `ascii_animator.py`**: Python scripts utilizing the `Pillow` library to map image pixel brightness to ANSI characters, rendering full-color ASCII art and animations directly in the Linux terminal.
+
 * `audio_engineer.py`: An automated audio mixing studio utilizing `pydub` and `ffmpeg`. It applies dynamic range compression to raw vocal tracks, attenuates background ambient tracks, calculates looping durations to match vocal length, and exports a leveled, broadcast-ready MP3. Supports an optional `--shield` flag that routes raw vocals through `acoustic_shield.py` prior to mixing.
   * Standard Usage: `python3 audio_engineer.py`
   * Privacy-Shielded Usage: `python3 audio_engineer.py --shield`
+
 *   **`reel_generator.py`**: A social media automation script utilizing `moviepy` and Pillow. It stretches a static thematic artwork `.png` to match the exact duration of an engineered audio track, formats it into a 1080x1920 vertical container, and exports a broadcast-ready `.mp4` video optimized for Instagram Reels and YouTube Shorts.
 
 ## ⚙️ Installation & Setup

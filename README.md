@@ -15,7 +15,6 @@ A two-stage pipeline that automates the conversion of unstructured study materia
 ### 2. Automated Security Auditing
 *   **`auto_scan.sh`**: A Bash wrapper script that automates system security audits by triggering `clamav`, `rkhunter`, and `lynis`, and parses the output for review.
 *   **`Unified Detection Pipeline`**: A lightweight, Python-based Security Orchestration, Automation, and Response (SOAR) tool. This script monitors target log files in real-time, extracts Indicators of Compromise (IOCs) using regular expressions, and normalizes detected threats into JSON alert payloads mapped to actionable remediation playbooks.
-
 	Features:
 
 	*Dynamic Configuration: Switch environments (e.g., VPN, SSH) via CLI arguments without altering core logic.
@@ -29,13 +28,17 @@ A two-stage pipeline that automates the conversion of unstructured study materia
 	*Generate synthetic logs and test the pipeline:python3 pipeline.py --target vpn --test
 
 	*Continuously monitor a live log file:python3 pipeline.py --target ssh
-
-*   **`metadata.py`**: An automated OSINT and digital forensics wrapper utilizing Python's `os` and `subprocess` modules to trigger batch `exiftool` scans across target directories. It dynamically filters for media and document formats (`.jpg`, `.png`, `.pdf`, `.wav`, `.mp3`) and extracts hidden EXIF, IPTC, XMP, and Composite headers - isolating device models, software signatures, Mobile Country Codes (MCC), optical metrics, and creation timestamps.
-
+* `metadata.py`: A bidirectional OSINT forensics extractor and metadata sanitizer utilizing Python's `os`, `subprocess`, and `argparse` modules to wrap `exiftool`. In default audit mode, it scans target directories for `.jpg`, `.png`, `.pdf`, `.wav`, and `.mp3` files to extract hidden EXIF, IPTC, XMP, and Composite headers (device models, Mobile Country Codes, optical metrics, and timestamps). Passing the `--scrub` flag executes an in-place sanitization pass (`-all= -overwrite_original`), stripping identifying metadata headers without leaving backup artifacts behind.
+  * Audit Usage: `python3 metadata.py`
+  * Sanitize Usage: `python3 metadata.py --scrub`
+* `acoustic_shield.py`: An audio countermeasure utility built on `subprocess` and `ffmpeg` to neutralize Acoustic Geolocation (Aircraft Doppler Curve matching) and Electrical Network Frequency (ENF) power-grid analysis. It chains a triple-band notch filter (`bandreject` at 50Hz, 60Hz, and 120Hz) to strip AC electrical hum, a hard digital noise gate (`agate` at `-35dB`) to sever background continuity during speech pauses, and a sub-perceptual pitch/phase modulator (`vibrato` at `0.4Hz`) to warp radial velocity slopes on spectrograms.
+  * Standalone Usage: `python3 acoustic_shield.py -i raw_vocals.wav -o shielded_audio.wav`
 ### 3. Data Collection & Media
 *   **`scraper.py`**: A Python web scraping utility designed to parse structured data from target web pages.
 *   **`ascii_converter.py` & `ascii_animator.py`**: Python scripts utilizing the `Pillow` library to map image pixel brightness to ANSI characters, rendering full-color ASCII art and animations directly in the Linux terminal.
-*   **`audio_engineer.py`**: An automated audio mixing studio utilizing `pydub` and `ffmpeg`. It applies dynamic range compression to raw vocal tracks, attenuates background ambient tracks, calculates looping durations to match vocal length, and exports a leveled, broadcast-ready MP3.
+* `audio_engineer.py`: An automated audio mixing studio utilizing `pydub` and `ffmpeg`. It applies dynamic range compression to raw vocal tracks, attenuates background ambient tracks, calculates looping durations to match vocal length, and exports a leveled, broadcast-ready MP3. Supports an optional `--shield` flag that routes raw vocals through `acoustic_shield.py` prior to mixing.
+  * Standard Usage: `python3 audio_engineer.py`
+  * Privacy-Shielded Usage: `python3 audio_engineer.py --shield`
 *   **`reel_generator.py`**: A social media automation script utilizing `moviepy` and Pillow. It stretches a static thematic artwork `.png` to match the exact duration of an engineered audio track, formats it into a 1080x1920 vertical container, and exports a broadcast-ready `.mp4` video optimized for Instagram Reels and YouTube Shorts.
 
 ## ⚙️ Installation & Setup

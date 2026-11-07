@@ -1,5 +1,6 @@
 import os
 import subprocess
+import argparse
 
 def extract_metadata(file_path):
     print("==========================================")
@@ -10,21 +11,39 @@ def extract_metadata(file_path):
     
     try:
         result = subprocess.run(command, capture_output=True, text=True, check=True)
-        raw_metadata = result.stdout
-        return raw_metadata
-        
+        return result.stdout
     except subprocess.CalledProcessError as e:
         print(f"Error parsing file: {e}")
         return None
 
-# Automated Directory Scanner
+def scrub_metadata(file_path):
+    print(f"[*] Scrubbing all metadata from {file_path}...")
+    
+    command = ["exiftool", "-all=", "-overwrite_original", file_path]
+    
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, check=True)
+        print(f"[+] Successfully sanitized: {file_path} -> {result.stdout.strip()}")
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"[!] Error scrubbing {file_path}: {e}")
+        return False
+
+# CLI Argument Orchestration
+parser = argparse.ArgumentParser(description="Automated Metadata Forensics & Sanitizer")
+parser.add_argument("--scrub", action="store_true", help="Wipe all metadata headers in-place")
+args = parser.parse_args()
+
 target_directory = "."
 valid_extensions = (".jpg", ".jpeg", ".png", ".pdf", ".wav", ".mp3")
 
 for filename in os.listdir(target_directory):
     if filename.lower().endswith(valid_extensions):
         full_path = os.path.join(target_directory, filename)
-        metadata_results = extract_metadata(full_path)
         
-        if metadata_results:
-            print(metadata_results)
+        if args.scrub:
+            scrub_metadata(full_path)
+        else:
+            metadata_results = extract_metadata(full_path)
+            if metadata_results:
+                print(metadata_results)

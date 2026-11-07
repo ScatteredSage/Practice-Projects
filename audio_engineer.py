@@ -1,30 +1,47 @@
-from pydub import AudioSegment
-from pydub.effects import normalize
+import os
+import argparse
+from pydub import AudioSegment, effects
+from acoustic_shield import apply_acoustic_shield
 
-# Load the tracks
-print("Loading audio files...")
-vocals = AudioSegment.from_file("raw_vocals.wav")
-ambience = AudioSegment.from_file("ambient.wav")
+def engineer_audio(vocal_path="raw_vocals.wav", ambient_path="ambient.wav", output_path="final_podcast_episode.mp3", use_shield=False):
+    active_vocal_file = vocal_path
 
-# Normalize the vocals (flatten the dynamic range)
-print("Normalizing vocals...")
-processed_vocals = normalize(vocals)
+    # Optional Pre-Processing: Acoustic & ENF Countermeasure
+    if use_shield:
+        shielded_temp = "temp_shielded_vocals.wav"
+        if apply_acoustic_shield(vocal_path, shielded_temp):
+            active_vocal_file = shielded_temp
 
-# Drop the ambient volume by 15 decibels 
-quiet_ambience = ambience - 15
+    print(f"[*] Loading audio tracks: {active_vocal_file} & {ambient_path}...")
+    vocals = AudioSegment.from_wav(active_vocal_file)
+    ambient = AudioSegment.from_wav(ambient_path)
 
-# Loop the background track to match the vocal length
-print("Syncing track durations...")
-if len(quiet_ambience) < len(processed_vocals):
-    loops_needed = (len(processed_vocals) // len(quiet_ambience)) + 1
-    quiet_ambience = quiet_ambience * loops_needed
+    print("[*] Applying dynamic range compression and normalization to vocals...")
+    vocals = effects.normalize(vocals)
+    vocals = effects.compress_dynamic_range(vocals, threshold=-20.0, ratio=4.0, attack=5.0, release=50.0)
+    vocals = effects.normalize(vocals)
 
-# Overlay the tracks
-print("Mixing audio...")
-final_mix = processed_vocals.overlay(quiet_ambience)
+    print("[*] Attenuating ambient track and matching vocal duration...")
+    ambient = ambient - 14
+    target_duration = len(vocals)
+    
+    if len(ambient) < target_duration:
+        loops = (target_duration // len(ambient)) + 1
+        ambient = ambient * loops
+    ambient = ambient[:target_duration]
 
-# Export the final polished track
-print("Exporting final MP3...")
-final_mix.export("final_podcast_episode.mp3", format="mp3")
+    print("[*] Mixing tracks and exporting broadcast-ready MP3...")
+    final_mix = vocals.overlay(ambient)
+    final_mix.export(output_path, format="mp3", bitrate="192k")
+    print(f"[+] Export complete: {output_path}")
 
-print("Audio engineering complete. Track exported.")
+    # Clean up temporary shielded WAV artifact
+    if use_shield and os.path.exists("temp_shielded_vocals.wav"):
+        os.remove("temp_shielded_vocals.wav")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Automated Audio Mixing Studio")
+    parser.add_argument("--shield", action="store_true", help="Apply Acoustic Geolocation & ENF Shield to vocals before mixing")
+    args = parser.parse_args()
+
+    engineer_audio(use_shield=args.shield)

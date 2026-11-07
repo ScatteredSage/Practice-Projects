@@ -30,12 +30,13 @@ def scrub_metadata(file_path):
         return False
 
 # CLI Argument Orchestration
-parser = argparse.ArgumentParser(description="Automated Metadata Forensics & Sanitizer")
+parser = argparse.ArgumentParser(description="Automated Metadata Forensics & Sanitizer (Images, Docs & Video)")
 parser.add_argument("--scrub", action="store_true", help="Wipe all metadata headers in-place")
 args = parser.parse_args()
 
 target_directory = "."
-valid_extensions = (".jpg", ".jpeg", ".png", ".pdf", ".wav", ".mp3")
+# Expanded to include video containers (.mp4, .mov, .mkv) alongside images, docs, and audio
+valid_extensions = (".jpg", ".jpeg", ".png", ".pdf", ".wav", ".mp3", ".mp4", ".mov", ".mkv")
 
 for filename in os.listdir(target_directory):
     if filename.lower().endswith(valid_extensions):

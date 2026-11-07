@@ -28,11 +28,13 @@ A two-stage pipeline that automates the conversion of unstructured study materia
 	*Generate synthetic logs and test the pipeline:python3 pipeline.py --target vpn --test
 
 	*Continuously monitor a live log file:python3 pipeline.py --target ssh
-* `metadata.py`: A bidirectional OSINT forensics extractor and metadata sanitizer utilizing Python's `os`, `subprocess`, and `argparse` modules to wrap `exiftool`. In default audit mode, it scans target directories for `.jpg`, `.png`, `.pdf`, `.wav`, and `.mp3` files to extract hidden EXIF, IPTC, XMP, and Composite headers (device models, Mobile Country Codes, optical metrics, and timestamps). Passing the `--scrub` flag executes an in-place sanitization pass (`-all= -overwrite_original`), stripping identifying metadata headers without leaving backup artifacts behind.
+* `metadata.py`: A bidirectional OSINT forensics extractor and metadata sanitizer utilizing Python's `os`, `subprocess`, and `argparse` modules to wrap `exiftool`. It supports images (`.jpg`, `.png`), documents (`.pdf`), audio (`.wav`, `.mp3`), and video containers (`.mp4`, `.mov`, `.mkv`). In audit mode, it extracts hidden EXIF, IPTC, XMP, and Composite headers. Passing `--scrub` executes an in-place sanitization pass (`-all= -overwrite_original`), stripping identifying metadata headers without leaving backup artifacts behind.
   * Audit Usage: `python3 metadata.py`
   * Sanitize Usage: `python3 metadata.py --scrub`
-* `acoustic_shield.py`: An audio countermeasure utility built on `subprocess` and `ffmpeg` to neutralize Acoustic Geolocation (Aircraft Doppler Curve matching) and Electrical Network Frequency (ENF) power-grid analysis. It chains a triple-band notch filter (`bandreject` at 50Hz, 60Hz, and 120Hz) to strip AC electrical hum, a hard digital noise gate (`agate` at `-35dB`) to sever background continuity during speech pauses, and a sub-perceptual pitch/phase modulator (`vibrato` at `0.4Hz`) to warp radial velocity slopes on spectrograms.
-  * Standalone Usage: `python3 acoustic_shield.py -i raw_vocals.wav -o shielded_audio.wav`
+* `acoustic_shield.py`: An audio and video countermeasure utility built on `subprocess` and `ffmpeg` to neutralize Acoustic Geolocation (Aircraft Doppler Curve matching) and Electrical Network Frequency (ENF) power-grid analysis. It chains a triple-band notch filter (`bandreject` at 50Hz, 60Hz, and 120Hz), a hard digital noise gate (`agate` at `-35dB`), and a sub-perceptual pitch/phase modulator (`vibrato` at `0.4Hz`). For video files (`.mp4`, `.mov`, `.mkv`), it shields the audio track while copying the video stream directly (`-c:v copy`) without re-encoding visuals.
+  * Standalone Audio Usage: `python3 acoustic_shield.py -i raw_vocals.wav -o shielded_audio.wav`
+  * Standalone Video Usage: `python3 acoustic_shield.py -i raw_video.mp4 -o shielded_video.mp4`
+
 ### 3. Data Collection & Media
 *   **`scraper.py`**: A Python web scraping utility designed to parse structured data from target web pages.
 *   **`ascii_converter.py` & `ascii_animator.py`**: Python scripts utilizing the `Pillow` library to map image pixel brightness to ANSI characters, rendering full-color ASCII art and animations directly in the Linux terminal.

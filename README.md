@@ -91,6 +91,15 @@ What it does: It alters the background frequencies of your audio or video files 
   * Standalone Audio Usage, To protect an audio file: `python3 acoustic_shield.py -i raw_vocals.wav -o shielded_audio.wav`
 
   * Standalone Video Usage, To protect a video file: `python3 acoustic_shield.py -i raw_video.mp4 -o shielded_video.mp4`
+* `acoustic_shield.py`: An advanced acoustic geolocation and stealth ENF countermeasure utility.
+
+  * **What it does:** It isolates your voice, scrubs out continuous airplane background noise in real-time, and injects a synthetic power-grid hum and warm analog microphone hiss. This breaks Doppler tracking algorithms while simultaneously spoofing forensic spectrograms to look like perfectly normal, untampered audio.
+
+  * **How to use it (Audio):** To protect an audio file, type: 
+    `python3 acoustic_shield.py -i raw_vocals.wav -o stealth_audio.wav`
+
+  * **How to use it (Video):** To protect the audio track of a video file (without changing the picture), type: 
+    `python3 acoustic_shield.py -i raw_video.mp4 -o stealth_video.mp4`
 
 ### 3. Data Collection & Media
 

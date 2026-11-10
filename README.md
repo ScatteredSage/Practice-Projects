@@ -80,16 +80,15 @@ python3 metadata.py
 	* **​How to use it (Sanitize Mode): To permanently wipe the hidden data from all files in the folder, type:
 python3 metadata.py --scrub
 
-* `acoustic_shield.py`: An advanced acoustic geolocation and stealth ENF countermeasure utility.
-  * **What it does:** It isolates your voice, scrubs out continuous airplane background noise in real-time, and injects a synthetic power-grid hum and warm analog microphone hiss. This breaks Doppler tracking algorithms while simultaneously spoofing forensic spectrograms to look like perfectly normal, untampered audio.
+* `acoustic_shield.py`: An advanced audio and video countermeasure utility built on `subprocess` and `ffmpeg` complex filtergraphs (`-filter_complex`) to neutralize Acoustic Geolocation (Aircraft Doppler Curve matching) and Electrical Network Frequency (ENF) power-grid analysis. It chains a triple-band notch filter (`bandreject` at 50Hz, 60Hz, and 120Hz), real-time spectral denoising (`afftdn` at `-25dB`), a hard digital noise gate (`agate` at `-35dB`), and a sub-perceptual pitch/phase modulator (`vibrato` at `0.4Hz`). To defeat forensic spectrogram inspection, it injects continuous analog room-tone (`anoisesrc` brown noise) and a synthetic `60Hz` decoy sine wave (`sine=f=60`). For video files (`.mp4`, `.mov`, `.mkv`), it maps the newly generated stealth audio track while copying the video stream directly (`-c:v copy`) without re-encoding visuals.
   
      **Non-technical breakdown**:An audio and video geolocation countermeasure.
  
-* **What it does:** It isolates your voice, scrubs out continuous airplane background noise in real-time, and injects a synthetic power-grid hum and warm analog microphone hiss. This breaks Doppler tracking algorithms while simultaneously spoofing forensic spectrograms to look like perfectly normal, untampered audio.
+* **What it does:** It isolates your voice, scrubs out continuous airplane background noise and power-grid hum in real-time, and injects a fake power-grid signal and warm microphone static so tracking algorithms fail and forensic analysts see what looks like normal, untampered audio.
 
-  * **How to use it (Audio):** To protect an audio file, type: 
+ * **How to use it (Audio):** To protect an audio file, type: 
     `python3 acoustic_shield.py -i raw_vocals.wav -o stealth_audio.wav`
-
+   
   * **How to use it (Video):** To protect the audio track of a video file (without changing the picture), type: 
     `python3 acoustic_shield.py -i raw_video.mp4 -o stealth_video.mp4`
 

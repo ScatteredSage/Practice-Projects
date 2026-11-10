@@ -7,3 +7,12 @@
 *.jpg
 *.jpeg
 *Zone.Identifier
+*.wav
+*.mp3
+*Zone.Identifier
+scan_results
+*.csv
+*.txt
+*.pdf
+*.log
+*.log

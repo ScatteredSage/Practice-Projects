@@ -80,7 +80,7 @@ python3 metadata.py
 	* ​How to use it (Sanitize Mode): To permanently wipe the hidden data from all files in the folder, type:
 python3 metadata.py --scrub
 
-*   **`acoustic_shield.py`: An advanced audio and video countermeasure utility built on `subprocess` and `ffmpeg` complex filtergraphs (`-filter_complex`) to neutralize Acoustic Geolocation (Aircraft Doppler Curve matching) and Electrical Network Frequency (ENF) power-grid analysis. It chains a triple-band notch filter (`bandreject` at 50Hz, 60Hz, and 120Hz), real-time spectral denoising (`afftdn` at `-25dB`), a hard digital noise gate (`agate` at `-35dB`), and a sub-perceptual pitch/phase modulator (`vibrato` at `0.4Hz`). To defeat forensic spectrogram inspection, it injects continuous analog room-tone (`anoisesrc` brown noise) and a synthetic `60Hz` decoy sine wave (`sine=f=60`). For video files (`.mp4`, `.mov`, `.mkv`), it maps the newly generated stealth audio track while copying the video stream directly (`-c:v copy`) without re-encoding visuals.
+*   **`acoustic_shield.py`**: An advanced audio and video countermeasure utility built on `subprocess` and `ffmpeg` complex filtergraphs (`-filter_complex`) to neutralize Acoustic Geolocation (Aircraft Doppler Curve matching) and Electrical Network Frequency (ENF) power-grid analysis. It chains a triple-band notch filter (`bandreject` at 50Hz, 60Hz, and 120Hz), real-time spectral denoising (`afftdn` at `-25dB`), a hard digital noise gate (`agate` at `-35dB`), and a sub-perceptual pitch/phase modulator (`vibrato` at `0.4Hz`). To defeat forensic spectrogram inspection, it injects continuous analog room-tone (`anoisesrc` brown noise) and a synthetic `60Hz` decoy sine wave (`sine=f=60`). For video files (`.mp4`, `.mov`, `.mkv`), it maps the newly generated stealth audio track while copying the video stream directly (`-c:v copy`) without re-encoding visuals.
   
      **Non-technical breakdown**:An audio and video geolocation countermeasure.
  
@@ -115,7 +115,7 @@ python3 ascii_converter.py image.png
 	* How to use it (Animation): Type the command followed by your video file:
 python3 ascii_animator.py video.mp4
 
-*   **`audio_engineer.py`: An automated audio mixing studio utilizing `pydub` and `ffmpeg`. It applies dynamic range compression to raw vocal tracks, attenuates background ambient tracks, calculates looping durations to match vocal length, and exports a leveled, broadcast-ready MP3. Supports an optional `--shield` flag that routes raw vocals through `acoustic_shield.py` prior to mixing.
+*   **`audio_engineer.py`**: An automated audio mixing studio utilizing `pydub` and `ffmpeg`. It applies dynamic range compression to raw vocal tracks, attenuates background ambient tracks, calculates looping durations to match vocal length, and exports a leveled, broadcast-ready MP3. Supports an optional `--shield` flag that routes raw vocals through `acoustic_shield.py` prior to mixing.
 
     **Non-technical breakdown**: An automated podcast mixing studio.
 

@@ -17,15 +17,6 @@ A two-stage pipeline that automates the conversion of unstructured study materia
  	* How to use it: To process a text file and output a cleaned file, type:
 python3 ai_parser.py input.txt output.txt
 
-*   **`flashcard_automator.py`**: The original, unified prototype script for the flashcard pipeline. It handles both basic PDF text extraction and Gemini API calls in a single execution, serving as the foundational logic before the system was upgraded into modular, multi-format stages.
-
-	**Non-technical breakdown**: The final formatting engine for spaced-repetition studying.
-
- 	* What it does: It takes the AI-structured Question/Answer text and automatically builds a .csv file perfectly formatted for import into Anki (or Quizlet), saving hours of manual data entry.
-
- 	* How to use it: To generate your Anki deck, type:
-python3 flashcard_automator.py parsed_data.txt flashcards.csv
-
 *   **`universal_extractor.py`**: The data gatherer. Rips raw text from `.pdf`, `.pptx`, `.png`, and `.jpg` files using `pypdf`, `python-pptx`, and Tesseract OCR, standardizing the output into a single text file.
 
   	**Non-technical breakdown**: A multi-format document parser.
@@ -34,6 +25,15 @@ python3 flashcard_automator.py parsed_data.txt flashcards.csv
 
  	* How to use it: Simply place your documents in the target folder and type:
 python3 universal_extractor.py
+
+*   **`flashcard_automator.py`**: The original, unified prototype script for the flashcard pipeline. It handles both basic PDF text extraction and Gemini API calls in a single execution, serving as the foundational logic before the system was upgraded into modular, multi-format stages.
+
+	**Non-technical breakdown**: The final formatting engine for spaced-repetition studying.
+
+ 	* What it does: It takes the AI-structured Question/Answer text and automatically builds a .csv file perfectly formatted for import into Anki (or Quizlet), saving hours of manual data entry.
+
+ 	* How to use it: To generate your Anki deck, type:
+python3 flashcard_automator.py parsed_data.txt flashcards.csv
 
 ### 2. Automated Security Auditing
 

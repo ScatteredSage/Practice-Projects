@@ -12,27 +12,27 @@ A two-stage pipeline that automates the conversion of unstructured study materia
 
 	**Non-technical breakdown**: A local API automation wrapper that routes raw text through Google's Gemini Flash AI model.
 
- 	* **What it does: It takes unstructured text (like raw PDF extracts or presentation notes) and automatically uses AI to structure it into distinct Question/Answer pairs formatted cleanly for flashcards (Anki).
+ 	* What it does: It takes unstructured text (like raw PDF extracts or presentation notes) and automatically uses AI to structure it into distinct Question/Answer pairs formatted cleanly for flashcards (Anki).
 
- 	* **How to use it: To process a text file and output a cleaned file, type:
+ 	* How to use it: To process a text file and output a cleaned file, type:
 python3 ai_parser.py input.txt output.txt
 
 *   **`flashcard_automator.py`**: The original, unified prototype script for the flashcard pipeline. It handles both basic PDF text extraction and Gemini API calls in a single execution, serving as the foundational logic before the system was upgraded into modular, multi-format stages.
 
 	**Non-technical breakdown**: The final formatting engine for spaced-repetition studying.
 
- 	* **What it does: It takes the AI-structured Question/Answer text and automatically builds a .csv file perfectly formatted for import into Anki (or Quizlet), saving hours of manual data entry.
+ 	* What it does: It takes the AI-structured Question/Answer text and automatically builds a .csv file perfectly formatted for import into Anki (or Quizlet), saving hours of manual data entry.
 
- 	* **How to use it: To generate your Anki deck, type:
+ 	* How to use it: To generate your Anki deck, type:
 python3 flashcard_automator.py parsed_data.txt flashcards.csv
 
 *   **`universal_extractor.py`**: The data gatherer. Rips raw text from `.pdf`, `.pptx`, `.png`, and `.jpg` files using `pypdf`, `python-pptx`, and Tesseract OCR, standardizing the output into a single text file.
 
   	**Non-technical breakdown**: A multi-format document parser.
 
-	* **​What it does: It automatically scans a folder and extracts the readable text from all your .pdf, .pptx, and .jpg/.png files (using Tesseract OCR for images) so the data is ready for the ai_parser.
+	* ​What it does: It automatically scans a folder and extracts the readable text from all your .pdf, .pptx, and .jpg/.png files (using Tesseract OCR for images) so the data is ready for the ai_parser.
 
- 	* **How to use it: Simply place your documents in the target folder and type:
+ 	* How to use it: Simply place your documents in the target folder and type:
 python3 universal_extractor.py
 
 ### 2. Automated Security Auditing
@@ -41,9 +41,9 @@ python3 universal_extractor.py
 
 	**Non-technical breakdown**: A Bash-scripted host enumeration utility.
 
- 	* **What it does: It automatically scans the local machine, enumerating active ports, active users, and system information, compiling it into a timestamped security log.
+ 	* What it does: It automatically scans the local machine, enumerating active ports, active users, and system information, compiling it into a timestamped security log.
 
- 	* **How to use it: Make the script executable and run it:
+ 	* How to use it: Make the script executable and run it:
 chmod +x auto_scan.sh
 ./auto_scan.sh
 
@@ -63,33 +63,33 @@ chmod +x auto_scan.sh
 
     **Non-technical breakdown**: 
 
-	* **What it does: It acts like a mini-SIEM (Security Information and Event Management) tool. It continuously tails live system logs, extracts malicious IP addresses using regular expressions, formats alerts into JSON, and writes automated firewall block rules.
+	* What it does: It acts like a mini-SIEM (Security Information and Event Management) tool. It continuously tails live system logs, extracts malicious IP addresses using regular expressions, formats alerts into JSON, and writes automated firewall block rules.
  
-	​* **How to use it: To run a live security audit on a target log file, type:
+	​* How to use it: To run a live security audit on a target log file, type:
 python3 pipeline.py --log /var/log/syslog --mode analyze
 
-	* **`metadata.py`: A bidirectional OSINT forensics extractor and metadata sanitizer utilizing Python's `os`, `subprocess`, and `argparse` modules to wrap `exiftool`. It supports images (`.jpg`, `.png`), documents (`.pdf`), audio (`.wav`, `.mp3`), and video containers (`.mp4`, `.mov`, `.mkv`). In audit mode, it extracts hidden EXIF, IPTC, XMP, and Composite headers. Passing `--scrub` executes an in-place sanitization pass (`-all= -overwrite_original`), stripping identifying metadata headers without leaving backup artifacts behind.
+*   **`metadata.py`: A bidirectional OSINT forensics extractor and metadata sanitizer utilizing Python's `os`, `subprocess`, and `argparse` modules to wrap `exiftool`. It supports images (`.jpg`, `.png`), documents (`.pdf`), audio (`.wav`, `.mp3`), and video containers (`.mp4`, `.mov`, `.mkv`). In audit mode, it extracts hidden EXIF, IPTC, XMP, and Composite headers. Passing `--scrub` executes an in-place sanitization pass (`-all= -overwrite_original`), stripping identifying metadata headers without leaving backup artifacts behind.
 
      **Non-technical breakdown**:
     
- 	* **What it does: It can either read the hidden data (like exact location coordinates or device models) secretly attached to your photos, documents, and videos, or permanently wipe that hidden data to protect your privacy.
+ 	* What it does: It can either read the hidden data (like exact location coordinates or device models) secretly attached to your photos, documents, and videos, or permanently wipe that hidden data to protect your privacy.
 
-	* **How to use it (Audit Mode): To safely see what hidden data is currently on your files, type:
+	* How to use it (Audit Mode): To safely see what hidden data is currently on your files, type:
 python3 metadata.py
 
-	* **​How to use it (Sanitize Mode): To permanently wipe the hidden data from all files in the folder, type:
+	* ​How to use it (Sanitize Mode): To permanently wipe the hidden data from all files in the folder, type:
 python3 metadata.py --scrub
 
-* `acoustic_shield.py`: An advanced audio and video countermeasure utility built on `subprocess` and `ffmpeg` complex filtergraphs (`-filter_complex`) to neutralize Acoustic Geolocation (Aircraft Doppler Curve matching) and Electrical Network Frequency (ENF) power-grid analysis. It chains a triple-band notch filter (`bandreject` at 50Hz, 60Hz, and 120Hz), real-time spectral denoising (`afftdn` at `-25dB`), a hard digital noise gate (`agate` at `-35dB`), and a sub-perceptual pitch/phase modulator (`vibrato` at `0.4Hz`). To defeat forensic spectrogram inspection, it injects continuous analog room-tone (`anoisesrc` brown noise) and a synthetic `60Hz` decoy sine wave (`sine=f=60`). For video files (`.mp4`, `.mov`, `.mkv`), it maps the newly generated stealth audio track while copying the video stream directly (`-c:v copy`) without re-encoding visuals.
+*   **`acoustic_shield.py`: An advanced audio and video countermeasure utility built on `subprocess` and `ffmpeg` complex filtergraphs (`-filter_complex`) to neutralize Acoustic Geolocation (Aircraft Doppler Curve matching) and Electrical Network Frequency (ENF) power-grid analysis. It chains a triple-band notch filter (`bandreject` at 50Hz, 60Hz, and 120Hz), real-time spectral denoising (`afftdn` at `-25dB`), a hard digital noise gate (`agate` at `-35dB`), and a sub-perceptual pitch/phase modulator (`vibrato` at `0.4Hz`). To defeat forensic spectrogram inspection, it injects continuous analog room-tone (`anoisesrc` brown noise) and a synthetic `60Hz` decoy sine wave (`sine=f=60`). For video files (`.mp4`, `.mov`, `.mkv`), it maps the newly generated stealth audio track while copying the video stream directly (`-c:v copy`) without re-encoding visuals.
   
      **Non-technical breakdown**:An audio and video geolocation countermeasure.
  
-* **What it does:** It isolates your voice, scrubs out continuous airplane background noise and power-grid hum in real-time, and injects a fake power-grid signal and warm microphone static so tracking algorithms fail and forensic analysts see what looks like normal, untampered audio.
+	* What it does:** It isolates your voice, scrubs out continuous airplane background noise and power-grid hum in real-time, and injects a fake power-grid signal and warm microphone static so tracking algorithms fail and forensic analysts see what looks like normal, untampered audio.
 
- * **How to use it (Audio):** To protect an audio file, type: 
+	* How to use it (Audio):** To protect an audio file, type: 
     `python3 acoustic_shield.py -i raw_vocals.wav -o stealth_audio.wav`
    
-  * **How to use it (Video):** To protect the audio track of a video file (without changing the picture), type: 
+	* How to use it (Video):** To protect the audio track of a video file (without changing the picture), type: 
     `python3 acoustic_shield.py -i raw_video.mp4 -o stealth_video.mp4`
 
 ### 3. Data Collection & Media
@@ -98,42 +98,42 @@ python3 metadata.py --scrub
 
     **Non-technical breakdown**: A Python web scraping utility designed to parse structured data from target web pages.
 
-	* **What it does: It automatically reads a website and extracts the specific text or data you want from it, saving you from having to copy and paste manually.
+	* What it does: It automatically reads a website and extracts the specific text or data you want from it, saving you from having to copy and paste manually.
 
-	* **How to use it: Type the command followed by the website you want to scan:
+	* How to use it: Type the command followed by the website you want to scan:
 python3 scraper.py [https://example.com](https://example.com)
 
 *   **`ascii_converter.py` & `ascii_animator.py`**: Python scripts utilizing the `Pillow` library to map image pixel brightness to ANSI characters, rendering full-color ASCII art and animations directly in the Linux terminal.
 
     **Non-technical breakdown**: Python scripts utilizing the Pillow library to map image pixel brightness to ANSI characters, rendering full-color ASCII art and animations directly in the Linux terminal.
  
-	* **What it does: It converts normal pictures and videos into retro, text-based art (made entirely of keyboard characters and colors) that displays directly in your command line window.
+	* What it does: It converts normal pictures and videos into retro, text-based art (made entirely of keyboard characters and colors) that displays directly in your command line window.
 
-	* **How to use it (Static Image): Type the command followed by your image file:
+	* How to use it (Static Image): Type the command followed by your image file:
 python3 ascii_converter.py image.png
 
-	* **How to use it (Animation): Type the command followed by your video file:
+	* How to use it (Animation): Type the command followed by your video file:
 python3 ascii_animator.py video.mp4
 
-* `audio_engineer.py`: An automated audio mixing studio utilizing `pydub` and `ffmpeg`. It applies dynamic range compression to raw vocal tracks, attenuates background ambient tracks, calculates looping durations to match vocal length, and exports a leveled, broadcast-ready MP3. Supports an optional `--shield` flag that routes raw vocals through `acoustic_shield.py` prior to mixing.
+*   **`audio_engineer.py`: An automated audio mixing studio utilizing `pydub` and `ffmpeg`. It applies dynamic range compression to raw vocal tracks, attenuates background ambient tracks, calculates looping durations to match vocal length, and exports a leveled, broadcast-ready MP3. Supports an optional `--shield` flag that routes raw vocals through `acoustic_shield.py` prior to mixing.
 
     **Non-technical breakdown**: An automated podcast mixing studio.
 
-	* **​What it does: It acts as a robot audio engineer. It automatically flattens your vocal volume, lowers the background music, matches the track lengths, and outputs a professional broadcast-ready MP3 file.
+	* ​What it does: It acts as a robot audio engineer. It automatically flattens your vocal volume, lowers the background music, matches the track lengths, and outputs a professional broadcast-ready MP3 file.
 
-	* **Standard Usage:Ensure raw_vocals.wav and ambient.wav are in your folder, then type:
+	* Standard Usage:Ensure raw_vocals.wav and ambient.wav are in your folder, then type:
 python3 audio_engineer.py`
 
-	* **Privacy-Shielded Usage: To automatically run your vocals through the acoustic privacy shield before mixing the final track, type:
+	* Privacy-Shielded Usage: To automatically run your vocals through the acoustic privacy shield before mixing the final track, type:
 python3 audio_engineer.py --shield
 
 *   **`reel_generator.py`**: A social media automation script utilizing `moviepy` and Pillow. It stretches a static thematic artwork `.png` to match the exact duration of an engineered audio track, formats it into a 1080x1920 vertical container, and exports a broadcast-ready `.mp4` video optimized for Instagram Reels and YouTube Shorts.
 
     **Non-technical breakdown**: 
 
-	* **What it does: It takes your final podcast audio and a background picture, combines them, formats the size perfectly for vertical phone screens, and outputs a finished video ready to upload.
+	* What it does: It takes your final podcast audio and a background picture, combines them, formats the size perfectly for vertical phone screens, and outputs a finished video ready to upload.
 
-	* **How to use it: Ensure your completed audio and image files are in the folder, then type:
+	* How to use it: Ensure your completed audio and image files are in the folder, then type:
 python3 reel_generator.py
 
 ## ⚙️ Installation & Setup

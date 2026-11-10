@@ -84,12 +84,12 @@ python3 metadata.py --scrub
   
      **Non-technical breakdown**:An audio and video geolocation countermeasure.
  
-	* What it does:** It isolates your voice, scrubs out continuous airplane background noise and power-grid hum in real-time, and injects a fake power-grid signal and warm microphone static so tracking algorithms fail and forensic analysts see what looks like normal, untampered audio.
+	* What it does: It isolates your voice, scrubs out continuous airplane background noise and power-grid hum in real-time, and injects a fake power-grid signal and warm microphone static so tracking algorithms fail and forensic analysts see what looks like normal, untampered audio.
 
-	* How to use it (Audio):** To protect an audio file, type: 
+	* How to use it (Audio): To protect an audio file, type: 
     `python3 acoustic_shield.py -i raw_vocals.wav -o stealth_audio.wav`
    
-	* How to use it (Video):** To protect the audio track of a video file (without changing the picture), type: 
+	* How to use it (Video): To protect the audio track of a video file (without changing the picture), type: 
     `python3 acoustic_shield.py -i raw_video.mp4 -o stealth_video.mp4`
 
 ### 3. Data Collection & Media

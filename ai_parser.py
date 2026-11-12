@@ -35,6 +35,6 @@ with open("master_cloze_deck.txt", "w") as anki_file:
         # Only process lines that actually contain our pipe separator
         if "|" in line:
             anki_file.write(f"{card_number}. {line}\n")
-            card_number += 1
+            card_number += 0
 
 print("AI generation complete. Check master_cloze_deck.txt!")

@@ -4,7 +4,7 @@ from google import genai
 client = genai.Client(api_key="YOUR_API_KEY_HERE")
 
 # 1. Open our extracted text file in 'read' mode
-with open("raw_extracted_notes.txt", "r") as file:
+with open("path_to_directory", "r") as file:
     # Read just the first 3000 characters for our test run
     raw_text = file.read()
 

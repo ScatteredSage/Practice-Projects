@@ -66,7 +66,7 @@ chmod +x auto_scan.sh
 	* What it does: It acts like a mini-SIEM (Security Information and Event Management) tool. It continuously tails live system logs, extracts malicious IP addresses using regular expressions, formats alerts into JSON, and writes automated firewall block rules.
  
 	​* How to use it: To run a live security audit on a target log file, type:
-python3 pipeline.py --log /var/log/syslog --mode analyze
+python3 pipeline.py --target ssh --test
 
 *   **`metadata.py`**: A bidirectional OSINT forensics extractor and metadata sanitizer utilizing Python's `os`, `subprocess`, and `argparse` modules to wrap `exiftool`. It supports images (`.jpg`, `.png`), documents (`.pdf`), audio (`.wav`, `.mp3`), and video containers (`.mp4`, `.mov`, `.mkv`). In audit mode, it extracts hidden EXIF, IPTC, XMP, and Composite headers. Passing `--scrub` executes an in-place sanitization pass (`-all= -overwrite_original`), stripping identifying metadata headers without leaving backup artifacts behind.
 

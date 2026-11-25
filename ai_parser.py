@@ -22,7 +22,7 @@ print("Sending data to the AI pipeline...")
 
 # 2. Pass our constructed instruction variable to the model using the new syntax
 response = client.models.generate_content(
-    model='gemini-3.8-flash',
+    model='gemini-3.5-flash-lite',
     contents=prompt
 )
 
